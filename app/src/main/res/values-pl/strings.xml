@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LifeCare</string>
+    <string name="password">Hasło</string>
+    <string name="email">Email</string>
+    <string name="goToRegister">Nie masz konta? Zarejestruj się!</string>
+    <string name="buttonLogin">Zaloguj</string>
+    <string name="buttonRegister">Zarejestruj</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="navigation_drawer_open">Otwórz nawigację</string>
+    <string name="navigation_drawer_close">Zamknij nawigację</string>
+
+    <string-array name="languagesArray">
+        <item>Angielski</item>
+        <item>Hiszpański</item>
+        <item>Polski</item>
+    </string-array>
+</resources>
