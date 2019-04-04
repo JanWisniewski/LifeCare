@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LifeCare</string>
+
+    <string-array name="languagesArray">
+        <item>Inglés</item>
+        <item>Español</item>
+        <item>Polaco</item>
+    </string-array>
+    <string name="password">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="goToRegister">¿No tienes cuenta? Regístrate ahora!</string>
+    <string name="buttonLogin">Acceder</string>
+    <string name="buttonRegister">Registro</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="navigation_drawer_open">Navegación abierta</string>
+    <string name="navigation_drawer_close">Cierra la navegacion</string>
+    <string name="settings">Ajustes</string>
+    <string name="contacts">Relaciones</string>
+    <string name="drugs">Drogas</string>
+    <string name="doctors">Médicos</string>
+    <string name="diseases">Enfermedades</string>
+    <string name="logout">Finalizar la sesión</string>
+    <string name="addedContact">Contacto añadido</string>
+    <string name="addContact">Añadir contacto</string>
+    <string name="name">Nombre</string>
+    <string name="phoneNumber">Numero de telefono</string>
+    <string name="addDrug">Añadir una droga</string>
+    <string name="addDoctor">Agregar un doctor</string>
+    <string name="addDisease">Agregar enfermedad</string>
+    <string name="savedSettings">Configuraciones guardadas</string>
 </resources>

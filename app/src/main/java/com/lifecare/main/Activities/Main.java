@@ -18,6 +18,7 @@ import com.lifecare.main.Fragments.ContactsFragment;
 import com.lifecare.main.Fragments.DiseasesFragment;
 import com.lifecare.main.Fragments.DoctorsFragment;
 import com.lifecare.main.Fragments.DrugsFragment;
+import com.lifecare.main.Fragments.SettingsFragment;
 import com.lifecare.main.R;
 
 public class Main extends AppCompatActivity
@@ -108,7 +109,7 @@ public class Main extends AppCompatActivity
         } else if (id == R.id.nav_diseases) {
             getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DiseasesFragment()).commit();
         } else if (id == R.id.nav_settings) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new SettingsFragment()).commit();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             finish();

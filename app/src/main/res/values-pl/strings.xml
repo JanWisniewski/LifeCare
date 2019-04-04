@@ -15,4 +15,18 @@
         <item>Hiszpański</item>
         <item>Polski</item>
     </string-array>
+    <string name="contacts">Kontakty</string>
+    <string name="drugs">Leki</string>
+    <string name="doctors">Lekarze</string>
+    <string name="diseases">Choroby</string>
+    <string name="settings">Ustawienia</string>
+    <string name="logout">Wyloguj</string>
+    <string name="addedContact">Dodano kontakt</string>
+    <string name="addContact">Dodaj kontakt</string>
+    <string name="name">Nazwa</string>
+    <string name="phoneNumber">Numer telefonu</string>
+    <string name="addDrug">Dodaj lek</string>
+    <string name="addDoctor">Dodaj lekarza</string>
+    <string name="addDisease">Dodaj chorobę</string>
+    <string name="savedSettings">Zapisano ustawienia</string>
 </resources>

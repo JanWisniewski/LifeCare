@@ -1,14 +1,25 @@
 package com.lifecare.main.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.lifecare.main.Activities.Main;
 import com.lifecare.main.R;
+
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +76,70 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        loadLocale();
+
+        final Spinner spinner = view.findViewById(R.id.languageSpinner);
+        String[] languagesArray = getResources().getStringArray(R.array.languagesArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
+                android.R.layout.simple_spinner_item, languagesArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        final Button saveSettingsBtn = view.findViewById(R.id.saveSettingsBtn);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, final int i, long l) {
+                saveSettingsBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (i == 0) {
+                            setLocale("en");
+                            getActivity().recreate();
+                            Toast.makeText(getContext(), R.string.savedSettings, Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getActivity(), Main.class));
+                        }
+                        if (i == 1) {
+                            setLocale("es");
+                            getActivity().recreate();
+                            Toast.makeText(getContext(), R.string.savedSettings, Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getActivity(), Main.class));
+                        }
+                        if (i == 2) {
+                            setLocale("pl");
+                            getActivity().recreate();
+                            Toast.makeText(getContext(), R.string.savedSettings, Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getActivity(), Main.class));
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        return view;
+    }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getActivity().getBaseContext().getResources().updateConfiguration(configuration, getActivity().getBaseContext().getResources().getDisplayMetrics());
+
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE).edit();
+        editor.putString("My language", language);
+        editor.apply();
+    }
+
+    private void loadLocale() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("My language", "");
+        setLocale(language);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
