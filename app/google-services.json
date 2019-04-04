@@ -15,8 +15,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "670544852421-2d87qg72upicd1dseu2k8sppr61be2pc.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "670544852421-si3k13j3q8c3psqltq8nnn23u1kl7cnh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lifecare.main",
+            "certificate_hash": "5900becc8e30a128bb7a40d9aec0c3df5308d4b0"
+          }
         }
       ],
       "api_key": [
@@ -25,15 +29,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670544852421-2d87qg72upicd1dseu2k8sppr61be2pc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

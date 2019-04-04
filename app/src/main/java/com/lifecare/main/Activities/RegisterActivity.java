@@ -18,7 +18,6 @@ import com.lifecare.main.R;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText password, email;
-    private Button registerButton;
 
     private FirebaseAuth firebaseAuth;
 
@@ -30,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         email = findViewById(R.id.email);
 
-        registerButton = findViewById(R.id.registerButton);
+        final Button registerButton = findViewById(R.id.registerButton);
 
         firebaseAuth = FirebaseAuth.getInstance();
 

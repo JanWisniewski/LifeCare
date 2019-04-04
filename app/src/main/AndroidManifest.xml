@@ -25,7 +25,10 @@
             android:name=".Activities.Main"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.FillContact"></activity>
+        <activity android:name=".Activities.FillContact" android:parentActivityName=".Activities.Main"/>
+        <activity android:name=".Activities.FillDisease" android:parentActivityName=".Activities.Main"/>
+        <activity android:name=".Activities.FillDoctor" android:parentActivityName=".Activities.Main"/>
+        <activity android:name=".Activities.FillDrug" android:parentActivityName=".Activities.Main"></activity>
     </application>
 
 </manifest>

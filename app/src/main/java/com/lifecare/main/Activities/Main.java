@@ -1,8 +1,10 @@
 package com.lifecare.main.Activities;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +27,27 @@ public class Main extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            int intentFragment = getIntent().getExtras().getInt("fragmentName");
+            switch (intentFragment) {
+                case 0:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new ContactsFragment()).commit();
+                    break;
+                case 1:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DrugsFragment()).commit();
+                    break;
+                case 2:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DiseasesFragment()).commit();
+                    break;
+                case 3:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DoctorsFragment()).commit();
+                    break;
+            }
+        } catch (Exception e) {
+            Log.e("error", e.getMessage());
+        }
+
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,9 +108,9 @@ public class Main extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DoctorsFragment()).commit();
         } else if (id == R.id.nav_diseases) {
             getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DiseasesFragment()).commit();
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
 
         }
 

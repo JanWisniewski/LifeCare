@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,6 @@ import com.lifecare.main.R;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText email, password;
-    private Button loginButton;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
 
-        loginButton = findViewById(R.id.loginButton);
+        final Button loginButton = findViewById(R.id.loginButton);
         final TextView goToRegisterLink = findViewById(R.id.goToRegisterLink);
 
         firebaseAuth = FirebaseAuth.getInstance();

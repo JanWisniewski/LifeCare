@@ -13,6 +13,8 @@
     <string name="drugs">Drugs</string>
     <string name="doctors">Doctors</string>
     <string name="diseases">Diseases</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Log Out</string>
     <!--login, register-->
     <string name="password">Password</string>
     <string name="email">Email</string>
@@ -29,5 +31,22 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_contact">Contact</string>
+
+    <!--toasts-->
+    <string name="addedContact">Added contact</string>
+
+    <!--Contacts-->
+    <string name="addContact">Add Contact</string>
+    <string name="name">Name</string>
+    <string name="phoneNumber">Phone number</string>
+
+    <!--Drugs-->
+    <string name="addDrug">Add Medicine</string>
+
+    <!--Doctors-->
+    <string name="addDoctor">Add Doctor</string>
+
+    <!--Diseases-->
+    <string name="addDisease">Add Disease</string>
 
 </resources>
