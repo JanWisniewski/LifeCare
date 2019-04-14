@@ -21,15 +21,29 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.RegisterActivity" />
-        <activity android:name=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:showForAllUsers="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" />
         <activity
             android:name=".Activities.Main"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.FillContact" android:parentActivityName=".Activities.Main"/>
-        <activity android:name=".Activities.FillDisease" android:parentActivityName=".Activities.Main"/>
-        <activity android:name=".Activities.FillDoctor" android:parentActivityName=".Activities.Main"/>
-        <activity android:name=".Activities.FillDrug" android:parentActivityName=".Activities.Main"></activity>
+        <activity
+            android:name=".Activities.FillContact"
+            android:parentActivityName=".Activities.Main" />
+        <activity
+            android:name=".Activities.FillDisease"
+            android:parentActivityName=".Activities.Main" />
+        <activity
+            android:name=".Activities.FillDoctor"
+            android:parentActivityName=".Activities.Main" />
+        <activity
+            android:name=".Activities.FillDrug"
+            android:parentActivityName=".Activities.Main" />
+
     </application>
 
 </manifest>

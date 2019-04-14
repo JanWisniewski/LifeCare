@@ -3,9 +3,14 @@ package com.lifecare.main;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+
+import com.lifecare.main.Activities.MainActivity;
 
 public class App extends Application {
 
@@ -13,18 +18,24 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        String notification = "notification";
-        android.support.v4.app.NotificationCompat.Builder builder = new NotificationCompat.Builder(this, notification);
+        Intent intent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(intent);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        String notification = "Notification";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, notification);
         builder.setSmallIcon(R.drawable.ic_menu_send);
-        builder.setContentTitle("notify");
+        builder.setContentTitle("Open");
+        builder.setContentIntent(pendingIntent);
         builder.setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         int id = 1;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "name";
-            String description = "description";
+            CharSequence name = "LifeCare";
+            String description = "Notifications from LifeCare";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(notification, name, importance);
             channel.setDescription(description);

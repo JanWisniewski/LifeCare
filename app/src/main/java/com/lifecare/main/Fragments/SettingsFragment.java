@@ -81,10 +81,23 @@ public class SettingsFragment extends Fragment {
 
         final Spinner spinner = view.findViewById(R.id.languageSpinner);
         String[] languagesArray = getResources().getStringArray(R.array.languagesArray);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_spinner_item, languagesArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        Locale current = getResources().getConfiguration().locale;
+        switch (current.toLanguageTag()) {
+            case "en":
+                spinner.setSelection(0);
+                break;
+            case "es":
+                spinner.setSelection(1);
+                break;
+            case "pl":
+                spinner.setSelection(2);
+                break;
+        }
 
         final Button saveSettingsBtn = view.findViewById(R.id.saveSettingsBtn);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -96,12 +109,14 @@ public class SettingsFragment extends Fragment {
                         if (i == 0) {
                             setLocale("en");
                             getActivity().recreate();
+                            spinner.setSelection(0);
                             Toast.makeText(getContext(), R.string.savedSettings, Toast.LENGTH_LONG).show();
                             startActivity(new Intent(getActivity(), Main.class));
                         }
                         if (i == 1) {
                             setLocale("es");
                             getActivity().recreate();
+                            spinner.setSelection(1);
                             Toast.makeText(getContext(), R.string.savedSettings, Toast.LENGTH_LONG).show();
                             startActivity(new Intent(getActivity(), Main.class));
                         }
@@ -110,6 +125,7 @@ public class SettingsFragment extends Fragment {
                             getActivity().recreate();
                             Toast.makeText(getContext(), R.string.savedSettings, Toast.LENGTH_LONG).show();
                             startActivity(new Intent(getActivity(), Main.class));
+                            spinner.setSelection(2);
                         }
                     }
                 });
