@@ -44,6 +44,14 @@
             android:name=".Activities.FillDrug"
             android:parentActivityName=".Activities.Main" />
 
+        <receiver
+            android:name=".Broadcast.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".Services.MyService"
+            android:exported="false" />
     </application>
 
 </manifest>
