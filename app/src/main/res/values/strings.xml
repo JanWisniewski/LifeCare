@@ -28,6 +28,12 @@
         <item>Polish</item>
     </string-array>
 
+    <string-array name="relationsArray">
+        <item>Parent</item>
+        <item>Child</item>
+        <item>Sibling</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_contact">Contact</string>
@@ -40,6 +46,8 @@
     <string name="addContact">Add Contact</string>
     <string name="name">Name</string>
     <string name="phoneNumber">Phone number</string>
+    <string name="address">Address</string>
+    <string name="Relation">Relation</string>
 
     <!--Drugs-->
     <string name="addDrug">Add Medicine</string>

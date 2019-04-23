@@ -6,8 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +28,8 @@ public class FillContact extends AppCompatActivity {
 
     EditText nameET;
     EditText phoneET;
+    EditText addressET;
+    Spinner relationSpinner;
 
     DatabaseReference dbContacts;
 
@@ -43,6 +47,13 @@ public class FillContact extends AppCompatActivity {
 
         nameET = findViewById(R.id.name);
         phoneET = findViewById(R.id.phone);
+        addressET = findViewById(R.id.address);
+        relationSpinner = findViewById(R.id.relation);
+        String[] relationsArray = getResources().getStringArray(R.array.relationsArray);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_spinner_item, relationsArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        relationSpinner.setAdapter(adapter);
         Button addContactBtn = findViewById(R.id.addContactBtn);
 
         final String id = intent.getStringExtra(ContactsFragment.CONTACT_ID);
@@ -57,6 +68,8 @@ public class FillContact extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     nameET.setText(dataSnapshot.child("name").getValue(String.class));
                     phoneET.setText(dataSnapshot.child("phone").getValue(String.class));
+                    addressET.setText(dataSnapshot.child("address").getValue(String.class));
+                    relationSpinner.setSelection(dataSnapshot.child("relation").getValue(Integer.class));
                 }
 
                 @Override
@@ -85,10 +98,12 @@ public class FillContact extends AppCompatActivity {
     private void updateContact(String id) {
         String name = nameET.getText().toString();
         String phone = phoneET.getText().toString();
+        String address = addressET.getText().toString();
+        Integer relation = relationSpinner.getSelectedItemPosition();
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        Contact contact = new Contact(id, name, phone, uid);
+        Contact contact = new Contact(id, name, relation, address, phone, uid);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Contacts").child(id);
 
@@ -108,12 +123,14 @@ public class FillContact extends AppCompatActivity {
     private void addContact() {
         String name = nameET.getText().toString();
         String phone = phoneET.getText().toString();
+        String address = addressET.getText().toString();
+        Integer relation = relationSpinner.getSelectedItemPosition();
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         String id = dbContacts.push().getKey();
 
-        Contact contact = new Contact(id, name, phone, uid);
+        Contact contact = new Contact(id, name, relation, address, phone, uid);
 
         dbContacts.child(id).setValue(contact).addOnCompleteListener(this, new OnCompleteListener<Void>() {
             @Override

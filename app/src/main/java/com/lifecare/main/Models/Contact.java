@@ -6,18 +6,22 @@ package com.lifecare.main.Models;
 
 public class Contact {
 
-    String id;
-    String name;
-    String phone;
-    String uid;
+    private String id;
+    private String name;
+    private Integer relation;
+    private String address;
+    private String phone;
+    private String uid;
 
     public Contact() {
 
     }
 
-    public Contact(String id, String name, String phone, String uid) {
+    public Contact(String id, String name, Integer relation, String address, String phone, String uid) {
         this.id = id;
         this.name = name;
+        this.relation = relation;
+        this.address = address;
         this.phone = phone;
         this.uid = uid;
     }
@@ -37,4 +41,14 @@ public class Contact {
     public String getPhone() {
         return phone;
     }
+
+    public Integer getRelation() {
+        return relation;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+
 }
