@@ -35,10 +35,6 @@
         <item>Sibling</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_contact">Contact</string>
-
     <!--buttons-->
     <string name="update">Update</string>
     <string name="delete">Delete</string>
@@ -71,13 +67,13 @@
 
     <string name="addedDrug">Added medicine</string>
     <string name="updatedDrug">Updated medicine</string>
-    <string name="deletedDrug">Deleted drug</string>
+    <string name="deletedDrug">Deleted medicine</string>
 
     <!--Doctors-->
     <string name="doctor">Doctor</string>
     <string name="addDoctor">Add Doctor</string>
     <string name="nameDoctor">Name</string>
-    <string name="phoneDoctor">Phone</string>
+    <string name="phoneDoctor">Phone number</string>
     <string name="specialzationDoctor">Specialization</string>
 
     <string-array name="specializationArray">
@@ -97,7 +93,7 @@
     <string name="state">State of disease</string>
 
     <string-array name="diseasesArray">
-        <item>Alergy</item>
+        <item>Allergy</item>
         <item>Cancer</item>
         <item>Flu</item>
     </string-array>

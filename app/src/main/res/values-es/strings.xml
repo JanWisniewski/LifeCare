@@ -14,6 +14,30 @@
         <item>Hermano</item>
     </string-array>
 
+    <string-array name="dosageArray">
+        <item>1 por día</item>
+        <item>2 por día</item>
+        <item>3 por día</item>
+    </string-array>
+
+    <string-array name="specializationArray">
+        <item>Cardiología</item>
+        <item>Dermatología</item>
+        <item>Neurología</item>
+    </string-array>
+
+    <string-array name="diseasesArray">
+        <item>Alergia</item>
+        <item>Cáncer</item>
+        <item>Gripe</item>
+    </string-array>
+
+    <string-array name="stateArray">
+        <item>Terminado</item>
+        <item>Crónico</item>
+        <item>Congénito</item>
+    </string-array>
+
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
     <string name="goToRegister">¿No tienes cuenta? Regístrate ahora!</string>
@@ -36,4 +60,31 @@
     <string name="addDoctor">Agregar un doctor</string>
     <string name="addDisease">Agregar enfermedad</string>
     <string name="savedSettings">Configuraciones guardadas</string>
+    <string name="save">" Salvar"</string>
+    <string name="update">" Actualizar"</string>
+    <string name="delete">" Borrar"</string>
+    <string name="address">Dirección</string>
+    <string name="Relation">Relación</string>
+    <string name="updatedContact">Contacto actualizado</string>
+    <string name="deletedContact">Contacto eliminado</string>
+    <string name="nameDrug">Nombre</string>
+    <string name="dosageDrug">Dosificación</string>
+    <string name="conflictsDrug">Conflictos</string>
+    <string name="addedDrug">Medicina añadida</string>
+    <string name="updatedDrug">Medicina actualizada</string>
+    <string name="deletedDrug">Medicina eliminada</string>
+    <string name="nameDoctor">Nombre</string>
+    <string name="phoneDoctor">"Número de teléfono "</string>
+    <string name="specialzationDoctor">Especialización</string>
+    <string name="addedDoctor">Doctor agregado</string>
+    <string name="updatedDoctor">"Doctor actualizado "</string>
+    <string name="deletedDoctor">"Doctor eliminado "</string>
+    <string name="descriptionDisease">Descripción</string>
+    <string name="disease">Enfermedad</string>
+    <string name="addedDisease">"Enfermedad añadida "</string>
+    <string name="state">" Estado de la enfermedad"</string>
+    <string name="deletedDisease">" Enfermedad eliminada"</string>
+    <string name="updatedDisease">" Enfermedad actualizada"</string>
+    <string name="contact">Contacto</string>
+    <string name="drug">" Medicina"</string>
 </resources>

@@ -22,6 +22,30 @@
         <item>Rodzeństwo</item>
     </string-array>
 
+    <string-array name="dosageArray">
+        <item>1 dziennie</item>
+        <item>2 dziennie</item>
+        <item>3 dziennie</item>
+    </string-array>
+
+    <string-array name="specializationArray">
+        <item>Kardiologia</item>
+        <item>Dermatologia</item>
+        <item>Neurologia</item>
+    </string-array>
+
+    <string-array name="diseasesArray">
+        <item>Alergia</item>
+        <item>Rak</item>
+        <item>Grypa</item>
+    </string-array>
+
+    <string-array name="stateArray">
+        <item>Zakończona</item>
+        <item>Przewlekła</item>
+        <item>Wrodzona</item>
+    </string-array>
+
     <string name="contacts">Kontakty</string>
     <string name="drugs">Leki</string>
     <string name="doctors">Lekarze</string>
@@ -36,4 +60,31 @@
     <string name="addDoctor">Dodaj lekarza</string>
     <string name="addDisease">Dodaj chorobę</string>
     <string name="savedSettings">Zapisano ustawienia</string>
+    <string name="save">Zapisz</string>
+    <string name="update">Aktualizuj</string>
+    <string name="delete">Usuń</string>
+    <string name="address">Adres</string>
+    <string name="Relation">Związek</string>
+    <string name="updatedContact">Aktualizowano kontakt</string>
+    <string name="deletedContact">Usunięto kontakt</string>
+    <string name="nameDrug">Nazwa</string>
+    <string name="dosageDrug">Dawkowanie</string>
+    <string name="conflictsDrug">Konflikty</string>
+    <string name="addedDrug">Dodano lek</string>
+    <string name="updatedDrug">Aktualizowano lek</string>
+    <string name="deletedDrug">Usunięto lek</string>
+    <string name="nameDoctor">Nazwa</string>
+    <string name="phoneDoctor">Numer telefonu</string>
+    <string name="specialzationDoctor">Specjalizacja</string>
+    <string name="addedDoctor">Dodano doktora</string>
+    <string name="updatedDoctor">Aktualizowano doktora</string>
+    <string name="deletedDoctor">Usunięto doktora</string>
+    <string name="descriptionDisease">Opis</string>
+    <string name="disease">Choroba</string>
+    <string name="state">Stan choroby</string>
+    <string name="addedDisease">Dodano chorobę</string>
+    <string name="updatedDisease">Aktualizowano chorobę</string>
+    <string name="deletedDisease">Usunięto chorobę</string>
+    <string name="drug">Lek</string>
+    <string name="contact">Kontakt</string>
 </resources>
