@@ -41,7 +41,6 @@ public class ContactsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    ArrayList<Contact> arrayList = new ArrayList<>();
     ListView listView;
     DatabaseReference dbContacts;
     List<Contact> contacts;
@@ -86,8 +85,6 @@ public class ContactsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
         final Button btn = view.findViewById(R.id.addContactBtn);
         btn.setOnClickListener(new View.OnClickListener() {

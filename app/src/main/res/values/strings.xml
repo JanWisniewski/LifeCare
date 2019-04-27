@@ -39,8 +39,7 @@
     <string name="title_activity_contact">Contact</string>
 
     <!--toasts-->
-    <string name="addedContact">Added contact</string>
-    <string name="updatedContact">Updated contact</string>
+
 
     <!--Contacts-->
     <string name="addContact">Add Contact</string>
@@ -49,14 +48,60 @@
     <string name="address">Address</string>
     <string name="Relation">Relation</string>
 
+    <string name="addedContact">Added contact</string>
+    <string name="updatedContact">Updated contact</string>
+
     <!--Drugs-->
     <string name="addDrug">Add Medicine</string>
+    <string name="nameDrug">Name</string>
+    <string name="dosageDrug">Dosage</string>
+
+    <string-array name="dosageArray">
+        <item>1 per day</item>
+        <item>2 per day</item>
+        <item>3 per day</item>
+    </string-array>
+
+    <string name="conflictsDrug">Conflicts</string>
+
+    <string name="addedDrug">Added medicine</string>
+    <string name="updatedDrug">Updated medicine</string>
 
     <!--Doctors-->
     <string name="addDoctor">Add Doctor</string>
+    <string name="nameDoctor">Name</string>
+    <string name="phoneDoctor">Phone</string>
+    <string name="specialzationDoctor">Specialization</string>
+
+    <string-array name="specializationArray">
+        <item>Cardiology</item>
+        <item>Dermatology</item>
+        <item>Neurology</item>
+    </string-array>
+
+    <string name="addedDoctor">Added doctor</string>
+    <string name="updatedDoctor">Updated doctor</string>
 
     <!--Diseases-->
     <string name="addDisease">Add Disease</string>
+    <string name="descriptionDisease">Description</string>
+    <string name="disease">Disease</string>
+    <string name="state">State of disease</string>
+
+    <string-array name="diseasesArray">
+        <item>Alergy</item>
+        <item>Cancer</item>
+        <item>Flu</item>
+    </string-array>
+
+    <string-array name="stateArray">
+        <item>Ended</item>
+        <item>Chronic</item>
+        <item>Congenital</item>
+    </string-array>
+
+    <string name="addedDisease">Added disease</string>
+    <string name="updatedDisease">Updated disease</string>
 
     <!--Settings-->
     <string name="savedSettings">Saved settings</string>

@@ -30,11 +30,11 @@ public class ContactList extends ArrayAdapter<Contact> {
         View listViewItem = inflater.inflate(R.layout.layout_contact_list, null, true);
 
         TextView textViewName = listViewItem.findViewById(R.id.textViewName);
-        TextView textViewGenre = listViewItem.findViewById(R.id.textViewPhone);
+        TextView textViewPhone = listViewItem.findViewById(R.id.textViewPhone);
 
         Contact contact = contacts.get(position);
         textViewName.setText(contact.getName());
-        textViewGenre.setText(contact.getPhone());
+        textViewPhone.setText(contact.getPhone());
 
         return listViewItem;
     }

@@ -7,6 +7,13 @@
         <item>Español</item>
         <item>Polaco</item>
     </string-array>
+
+    <string-array name="relationsArray">
+        <item>Padre</item>
+        <item>Niño</item>
+        <item>Hermano</item>
+    </string-array>
+
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
     <string name="goToRegister">¿No tienes cuenta? Regístrate ahora!</string>

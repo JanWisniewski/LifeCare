@@ -1,31 +1,31 @@
 package com.lifecare.main.Fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.lifecare.main.Activities.FillDrug;
+import com.lifecare.main.Lists.DrugList;
+import com.lifecare.main.Models.Drug;
 import com.lifecare.main.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,20 +36,19 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class DrugsFragment extends Fragment {
+    public static final String DRUG_ID = null;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    ListView listView;
+    List<Drug> drugs;
+    DatabaseReference dbDrugs;
+    Query query;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-
-    ArrayList<String> arrayList = new ArrayList<>();
-    ListView listView;
-    DatabaseReference dbDrugs;
 
     public DrugsFragment() {
         // Required empty public constructor
@@ -93,48 +92,54 @@ public class DrugsFragment extends Fragment {
             public void onClick(View view) {
                 Intent addDrugIntent = new Intent(getActivity(), FillDrug.class);
                 startActivity(addDrugIntent);
-                ((Activity) getActivity()).overridePendingTransition(0, 0);
+                getActivity().overridePendingTransition(0, 0);
             }
         });
+
+        listView = view.findViewById(R.id.listViewDrugs);
 
         String uid = FirebaseAuth.getInstance().getUid();
         dbDrugs = FirebaseDatabase.getInstance().getReference("Drugs");
-        Query query = dbDrugs.orderByChild("uid").equalTo(uid);
+        query = dbDrugs.orderByChild("uid").equalTo(uid);
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, arrayList);
-
-        listView = view.findViewById(R.id.listView);
-        listView.setAdapter(arrayAdapter);
-
-        query.addChildEventListener(new ChildEventListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String childs = dataSnapshot.child("name").getValue(String.class);
-                arrayList.add(childs);
-                arrayAdapter.notifyDataSetChanged();
-            }
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Drug drug = drugs.get(i);
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                arrayAdapter.notifyDataSetChanged();
-            }
+                Intent openUpdate = new Intent(getActivity(), FillDrug.class);
+                openUpdate.putExtra(DRUG_ID, drug.getId());
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                startActivity(openUpdate);
             }
         });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        drugs = new ArrayList<>();
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                drugs.clear();
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Drug drug = postSnapshot.getValue(Drug.class);
+                    drugs.add(drug);
+                }
+
+                DrugList drugAdapter = new DrugList(getActivity(), drugs);
+                listView.setAdapter(drugAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -15,6 +15,13 @@
         <item>Hiszpański</item>
         <item>Polski</item>
     </string-array>
+
+    <string-array name="relationsArray">
+        <item>Rodzic</item>
+        <item>Dziecko</item>
+        <item>Rodzeństwo</item>
+    </string-array>
+
     <string name="contacts">Kontakty</string>
     <string name="drugs">Leki</string>
     <string name="doctors">Lekarze</string>
