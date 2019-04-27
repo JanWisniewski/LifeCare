@@ -129,7 +129,7 @@ public class FillDisease extends AppCompatActivity {
 
         Disease disease = new Disease(id, diseaseID, description, stateID, uid);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Disease").child(id);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Diseases").child(id);
 
         databaseReference.setValue(disease).addOnCompleteListener(this, new OnCompleteListener<Void>() {
             @Override
