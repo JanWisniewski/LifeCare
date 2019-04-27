@@ -39,6 +39,7 @@
             android:parentActivityName=".Activities.Main" />
         <activity
             android:name=".Activities.FillDoctor"
+            android:label="@string/doctor"
             android:parentActivityName=".Activities.Main" />
         <activity
             android:name=".Activities.FillDrug"

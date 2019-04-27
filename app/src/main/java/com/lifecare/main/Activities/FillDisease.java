@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,6 +28,7 @@ public class FillDisease extends AppCompatActivity {
     Spinner spinnerDisease;
     EditText descriptionET;
     Spinner spinnerState;
+    String id;
 
     DatabaseReference dbDiseases;
 
@@ -37,6 +38,7 @@ public class FillDisease extends AppCompatActivity {
         setContentView(R.layout.activity_fill_disease);
 
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.disease);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -57,9 +59,7 @@ public class FillDisease extends AppCompatActivity {
         stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerState.setAdapter(stateAdapter);
 
-        Button addDiseaseBtn = findViewById(R.id.addDiseaseBtn);
-
-        final String id = intent.getStringExtra(DiseasesFragment.DISEASE_ID);
+        id = intent.getStringExtra(DiseasesFragment.DISEASE_ID);
 
         dbDiseases = FirebaseDatabase.getInstance().getReference("Diseases");
 
@@ -77,20 +77,6 @@ public class FillDisease extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-
-            addDiseaseBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    updateDisease(id);
-                }
-            });
-        } else {
-            addDiseaseBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addDisease();
                 }
             });
         }
@@ -149,5 +135,30 @@ public class FillDisease extends AppCompatActivity {
         diseaseFragment.putExtra("fragmentName", 2);
         startActivity(diseaseFragment);
         finish();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.save, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            onClickSave();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onClickSave() {
+        if (id != null) {
+            updateDisease(id);
+        } else {
+            addDisease();
+        }
     }
 }

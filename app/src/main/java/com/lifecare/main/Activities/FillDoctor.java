@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,6 +28,7 @@ public class FillDoctor extends AppCompatActivity {
     EditText nameET;
     EditText phoneET;
     Spinner spinnerSpecialization;
+    String id;
 
     DatabaseReference dbDoctors;
 
@@ -37,6 +38,7 @@ public class FillDoctor extends AppCompatActivity {
         setContentView(R.layout.activity_fill_doctor);
 
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.doctor);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -51,9 +53,8 @@ public class FillDoctor extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, specializationArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSpecialization.setAdapter(adapter);
-        Button addDoctorBtn = findViewById(R.id.addDoctorBtn);
 
-        final String id = intent.getStringExtra(DoctorsFragment.DOCTORS_ID);
+        id = intent.getStringExtra(DoctorsFragment.DOCTORS_ID);
 
         dbDoctors = FirebaseDatabase.getInstance().getReference("Doctors");
 
@@ -73,20 +74,14 @@ public class FillDoctor extends AppCompatActivity {
 
                 }
             });
+        }
+    }
 
-            addDoctorBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    updateDoctor(id);
-                }
-            });
+    private void onClickSave() {
+        if (id != null) {
+            updateDoctor(id);
         } else {
-            addDoctorBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addDoctor();
-                }
-            });
+            addDoctor();
         }
     }
 
@@ -143,5 +138,21 @@ public class FillDoctor extends AppCompatActivity {
         doctorsFragment.putExtra("fragmentName", 3);
         startActivity(doctorsFragment);
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.save, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            onClickSave();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,6 +28,7 @@ public class FillDrug extends AppCompatActivity {
     EditText nameET;
     EditText conflictsET;
     Spinner spinnerDosage;
+    String id;
 
     DatabaseReference dbDrugs;
 
@@ -37,6 +38,7 @@ public class FillDrug extends AppCompatActivity {
         setContentView(R.layout.activity_fill_drug);
 
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.drug);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -51,9 +53,8 @@ public class FillDrug extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, dosageArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDosage.setAdapter(adapter);
-        Button addDrugBtn = findViewById(R.id.addDrugBtn);
 
-        final String id = intent.getStringExtra(DrugsFragment.DRUG_ID);
+        id = intent.getStringExtra(DrugsFragment.DRUG_ID);
 
         dbDrugs = FirebaseDatabase.getInstance().getReference("Drugs");
 
@@ -73,20 +74,14 @@ public class FillDrug extends AppCompatActivity {
 
                 }
             });
+        }
+    }
 
-            addDrugBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    updateDrug(id);
-                }
-            });
+    private void onClickSave() {
+        if (id != null) {
+            updateDrug(id);
         } else {
-            addDrugBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addDrug();
-                }
-            });
+            addDrug();
         }
     }
 
@@ -143,5 +138,22 @@ public class FillDrug extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.save, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            onClickSave();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,6 +29,7 @@ public class FillContact extends AppCompatActivity {
     EditText phoneET;
     EditText addressET;
     Spinner relationSpinner;
+    String id;
 
     DatabaseReference dbContacts;
 
@@ -39,6 +39,7 @@ public class FillContact extends AppCompatActivity {
         setContentView(R.layout.activity_fill_contact);
 
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.contact);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -54,9 +55,8 @@ public class FillContact extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, relationsArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         relationSpinner.setAdapter(adapter);
-        Button addContactBtn = findViewById(R.id.addContactBtn);
 
-        final String id = intent.getStringExtra(ContactsFragment.CONTACT_ID);
+        id = intent.getStringExtra(ContactsFragment.CONTACT_ID);
 
         dbContacts = FirebaseDatabase.getInstance().getReference("Contacts");
 
@@ -75,21 +75,6 @@ public class FillContact extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-
-            addContactBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    updateContact(id);
-                }
-            });
-
-        } else {
-            addContactBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addContact();
                 }
             });
         }
@@ -153,8 +138,26 @@ public class FillContact extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        backToList();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.save, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            onClickSave();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onClickSave() {
+        if (id != null) {
+            updateContact(id);
+        } else {
+            addContact();
+        }
     }
 }
