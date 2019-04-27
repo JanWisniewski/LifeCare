@@ -38,8 +38,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_contact">Contact</string>
 
-    <!--toasts-->
-
+    <!--buttons-->
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
 
     <!--Contacts-->
     <string name="addContact">Add Contact</string>
@@ -50,6 +51,7 @@
 
     <string name="addedContact">Added contact</string>
     <string name="updatedContact">Updated contact</string>
+    <string name="deletedContact">Deleted contact</string>
 
     <!--Drugs-->
     <string name="addDrug">Add Medicine</string>
@@ -66,6 +68,7 @@
 
     <string name="addedDrug">Added medicine</string>
     <string name="updatedDrug">Updated medicine</string>
+    <string name="deletedDrug">Deleted drug</string>
 
     <!--Doctors-->
     <string name="addDoctor">Add Doctor</string>
@@ -81,6 +84,7 @@
 
     <string name="addedDoctor">Added doctor</string>
     <string name="updatedDoctor">Updated doctor</string>
+    <string name="deletedDoctor">Deleted doctor</string>
 
     <!--Diseases-->
     <string name="addDisease">Add Disease</string>
@@ -102,6 +106,7 @@
 
     <string name="addedDisease">Added disease</string>
     <string name="updatedDisease">Updated disease</string>
+    <string name="deletedDisease">Deleted disease</string>
 
     <!--Settings-->
     <string name="savedSettings">Saved settings</string>
