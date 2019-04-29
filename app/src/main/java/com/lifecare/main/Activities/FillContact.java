@@ -1,12 +1,17 @@
 package com.lifecare.main.Activities;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,6 +29,8 @@ import com.lifecare.main.Models.Contact;
 import com.lifecare.main.R;
 
 public class FillContact extends AppCompatActivity {
+
+    private static final int RESULT_PICK_CONTACT = 1;
 
     EditText nameET;
     EditText phoneET;
@@ -55,6 +62,17 @@ public class FillContact extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, relationsArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         relationSpinner.setAdapter(adapter);
+
+        Button addFromContactListBtn = findViewById(R.id.addFromContactListBtn);
+
+        addFromContactListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+            }
+        });
 
         id = intent.getStringExtra(ContactsFragment.CONTACT_ID);
 
@@ -158,6 +176,37 @@ public class FillContact extends AppCompatActivity {
             updateContact(id);
         } else {
             addContact();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case RESULT_PICK_CONTACT:
+                    Cursor cursor = null;
+                    try {
+                        String phoneNumber = null;
+                        String name = null;
+                        Uri uri = data.getData();
+                        cursor = getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+                        int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                        phoneNumber = cursor.getString(phoneIndex);
+                        int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                        name = cursor.getString(nameIndex);
+
+                        nameET.setText(name);
+                        phoneET.setText(phoneNumber);
+                        Toast.makeText(getApplicationContext(), R.string.successGetFromList, Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.problemGetFromList, Toast.LENGTH_LONG).show();
         }
     }
 }

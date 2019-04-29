@@ -42,6 +42,7 @@
     <!--Contacts-->
     <string name="contact">Contact</string>
     <string name="addContact">Add Contact</string>
+    <string name="addFromContactList">Add from ContactList</string>
     <string name="name">Name</string>
     <string name="phoneNumber">Phone number</string>
     <string name="address">Address</string>
@@ -50,6 +51,8 @@
     <string name="addedContact">Added contact</string>
     <string name="updatedContact">Updated contact</string>
     <string name="deletedContact">Deleted contact</string>
+    <string name="problemGetFromList">Failed to pick contact</string>
+    <string name="successGetFromList">Successfully picked contact</string>
 
     <!--Drugs-->
     <string name="drug">Medicine</string>
