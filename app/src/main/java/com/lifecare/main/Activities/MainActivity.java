@@ -1,15 +1,88 @@
 package com.lifecare.main.Activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-import static com.lifecare.main.R.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.lifecare.main.GPSTracker;
+
+import java.util.ArrayList;
+
+import static com.lifecare.main.R.id;
+import static com.lifecare.main.R.layout;
 
 public class MainActivity extends AppCompatActivity {
+
+    DatabaseReference dbContacts;
+    private ArrayList<String> phoneNumbers = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_main);
+
+        String uid = FirebaseAuth.getInstance().getUid();
+        dbContacts = FirebaseDatabase.getInstance().getReference("Contacts");
+        Query query = dbContacts.orderByChild("uid").equalTo(uid);
+
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String child = postSnapshot.child("phone").getValue(String.class);
+                            phoneNumbers.add(child);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+        Button sendMessagesBtn = findViewById(id.sendMessagesBtn);
+
+        sendMessagesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GPSTracker gps = new GPSTracker(view.getContext());
+                if (gps.isGPSEnabled) {
+                    if (gps.getLatitude() != 0.0 && gps.getLongitude() != 0.0) {
+                        Location location = new Location("");
+                        location.setLatitude(gps.getLatitude());
+                        location.setLongitude(gps.getLongitude());
+                        for (int i = 0; i < phoneNumbers.size(); i++) {
+                            sendLocationSMS(phoneNumbers.get(i), location);
+                            Toast.makeText(view.getContext(), "Sent", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                } else {
+                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                }
+            }
+        });
+    }
+
+    public void sendLocationSMS(String phoneNumber, Location currentLocation) {
+        SmsManager smsManager = SmsManager.getDefault();
+        StringBuffer smsBody = new StringBuffer();
+        smsBody.append("http://maps.google.com?q=");
+        smsBody.append(currentLocation.getLatitude());
+        smsBody.append(",");
+        smsBody.append(currentLocation.getLongitude());
+        smsManager.sendTextMessage(phoneNumber, null, smsBody.toString(), null, null);
     }
 }
