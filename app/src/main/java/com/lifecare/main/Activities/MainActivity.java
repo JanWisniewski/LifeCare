@@ -1,7 +1,11 @@
 package com.lifecare.main.Activities;
 
 import android.content.Intent;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
 import android.location.Location;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.lifecare.main.GPSTracker;
+import com.lifecare.main.R;
 
 import java.util.ArrayList;
 
@@ -27,6 +32,7 @@ import static com.lifecare.main.R.layout;
 public class MainActivity extends AppCompatActivity {
 
     DatabaseReference dbContacts;
+    boolean torchOn = false;
     private ArrayList<String> phoneNumbers = new ArrayList<String>();
 
     @Override
@@ -58,31 +64,63 @@ public class MainActivity extends AppCompatActivity {
         sendMessagesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GPSTracker gps = new GPSTracker(view.getContext());
-                if (gps.isGPSEnabled) {
-                    if (gps.getLatitude() != 0.0 && gps.getLongitude() != 0.0) {
-                        Location location = new Location("");
-                        location.setLatitude(gps.getLatitude());
-                        location.setLongitude(gps.getLongitude());
-                        for (int i = 0; i < phoneNumbers.size(); i++) {
-                            sendLocationSMS(phoneNumbers.get(i), location);
-                            Toast.makeText(view.getContext(), "Sent", Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        for (int i = 0; i < phoneNumbers.size(); i++) {
-                            sendLocationSMSWithoutLocation(phoneNumbers.get(i));
-                            Toast.makeText(view.getContext(), "Sent", Toast.LENGTH_LONG).show();
+                onClickSend();
+            }
+        });
+
+        Button alarmBtn = findViewById(id.alarmBtn);
+
+        final MediaPlayer alarmSound = MediaPlayer.create(this, R.raw.alarm);
+
+        alarmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
+                try {
+                    String cameraID = cameraManager.getCameraIdList()[0];
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (torchOn) {
+                            alarmSound.pause();
+                            cameraManager.setTorchMode(cameraID, false);
+                            torchOn = false;
+                        } else {
+                            alarmSound.isLooping();
+                            alarmSound.start();
+                            cameraManager.setTorchMode(cameraID, true);
+                            torchOn = true;
                         }
                     }
-                } else {
-                    for (int i = 0; i < phoneNumbers.size(); i++) {
-                        sendLocationSMSWithoutLocation(phoneNumbers.get(i));
-                        Toast.makeText(view.getContext(), "Sent", Toast.LENGTH_LONG).show();
-                    }
-                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                } catch (CameraAccessException e) {
+                    e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void onClickSend() {
+        GPSTracker gps = new GPSTracker(getApplicationContext());
+        if (gps.isGPSEnabled) {
+            if (gps.getLatitude() != 0.0 && gps.getLongitude() != 0.0) {
+                Location location = new Location("");
+                location.setLatitude(gps.getLatitude());
+                location.setLongitude(gps.getLongitude());
+                for (int i = 0; i < phoneNumbers.size(); i++) {
+                    sendLocationSMS(phoneNumbers.get(i), location);
+                    Toast.makeText(getApplicationContext(), "Sent", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                for (int i = 0; i < phoneNumbers.size(); i++) {
+                    sendLocationSMSWithoutLocation(phoneNumbers.get(i));
+                    Toast.makeText(getApplicationContext(), "Sent", Toast.LENGTH_LONG).show();
+                }
+            }
+        } else {
+            for (int i = 0; i < phoneNumbers.size(); i++) {
+                sendLocationSMSWithoutLocation(phoneNumbers.get(i));
+                Toast.makeText(getApplicationContext(), "Sent", Toast.LENGTH_LONG).show();
+            }
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
     }
 
     public void sendLocationSMS(String phoneNumber, Location currentLocation) {
