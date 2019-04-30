@@ -15,6 +15,19 @@ import com.lifecare.main.Broadcast.MyBroadcastReceiver;
 
 public class App extends Application {
 
+    public static boolean NOTIFICATION_DISPLAYED = true;
+
+    static NotificationManagerCompat notificationManager;
+    static Notification notification;
+
+    public static void notificationDisplay() {
+        notificationManager.notify(0, notification);
+    }
+
+    public static void notificationNotDisplay() {
+        notificationManager.cancel(0);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,7 +43,7 @@ public class App extends Application {
             manager.createNotificationChannel(channel);
         }
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager = NotificationManagerCompat.from(this);
 
         RemoteViews collapsedView = new RemoteViews(getPackageName(),
                 R.layout.notification);
@@ -41,13 +54,16 @@ public class App extends Application {
 
         collapsedView.setOnClickPendingIntent(R.id.backgroundNotification, clickPendingIntent);
 
-        Notification notification = new NotificationCompat.Builder(this, "0")
+        notification = new NotificationCompat.Builder(this, "0")
                 .setSmallIcon(R.drawable.ic_menu_send)
                 .setOngoing(true)
                 .setCustomContentView(collapsedView)
                 .build();
 
-        notificationManager.notify(0, notification);
+        if (NOTIFICATION_DISPLAYED) {
+            notificationDisplay();
+        } else {
+            notificationNotDisplay();
+        }
     }
-
 }
