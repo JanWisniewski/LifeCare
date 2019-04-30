@@ -111,7 +111,7 @@ public class FillDrug extends AppCompatActivity {
 
     private void backToList() {
         Intent drugsFragment = new Intent(getApplicationContext(), Main.class);
-        drugsFragment.putExtra("fragmentName", 1);
+        drugsFragment.putExtra("fragmentName", "drugs");
         startActivity(drugsFragment);
         finish();
     }

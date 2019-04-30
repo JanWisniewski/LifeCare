@@ -153,7 +153,7 @@ public class FillDoctor extends AppCompatActivity {
 
     private void backToList() {
         Intent doctorsFragment = new Intent(getApplicationContext(), Main.class);
-        doctorsFragment.putExtra("fragmentName", 3);
+        doctorsFragment.putExtra("fragmentName", "doctors");
         startActivity(doctorsFragment);
         finish();
     }

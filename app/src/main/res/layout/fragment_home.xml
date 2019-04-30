@@ -9,25 +9,23 @@
         android:id="@+id/contactBtn"
         android:layout_width="120dp"
         android:layout_height="108dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="88dp"
-        android:text="Button"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_phone_book_color"
+        android:text="@string/contacts"
         app:layout_constraintBottom_toTopOf="@+id/doctorBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toEndOf="@+id/userBtn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/diseaseBtn"
         android:layout_width="120dp"
         android:layout_height="108dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="52dp"
-        android:text="Button"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="32dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_heart_color"
+        android:text="@string/diseases"
         app:layout_constraintBottom_toTopOf="@+id/drugsBtn"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -35,22 +33,23 @@
         android:id="@+id/doctorBtn"
         android:layout_width="120dp"
         android:layout_height="108dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Button"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_doctor_color"
+        android:text="@string/doctors"
         app:layout_constraintBottom_toTopOf="@+id/settingsBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.671"
-        app:layout_constraintStart_toEndOf="@+id/diseaseBtn" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/drugsBtn"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginBottom="36dp"
-        android:layout_marginStart="52dp"
-        android:text="Button"
+        android:layout_marginBottom="44dp"
+        android:layout_marginStart="32dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_drug_color"
+        android:text="@string/drugs"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -58,26 +57,25 @@
         android:id="@+id/settingsBtn"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginBottom="36dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Button"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="32dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_gear_color"
+        android:text="@string/action_settings"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.671"
-        app:layout_constraintStart_toEndOf="@+id/drugsBtn" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/userBtn"
         android:layout_width="120dp"
         android:layout_height="108dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="88dp"
-        android:text="Button"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="32dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_user_color"
+        android:text="@string/userInfo"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/diseaseBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

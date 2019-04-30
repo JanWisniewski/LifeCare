@@ -22,6 +22,7 @@ import com.lifecare.main.Fragments.ContactsFragment;
 import com.lifecare.main.Fragments.DiseasesFragment;
 import com.lifecare.main.Fragments.DoctorsFragment;
 import com.lifecare.main.Fragments.DrugsFragment;
+import com.lifecare.main.Fragments.HomeFragment;
 import com.lifecare.main.Fragments.SettingsFragment;
 import com.lifecare.main.R;
 
@@ -54,21 +55,28 @@ public class Main extends AppCompatActivity
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new HomeFragment()).commit();
+
         try {
-            int intentFragment = getIntent().getExtras().getInt("fragmentName");
+            String intentFragment = getIntent().getExtras().getString("fragmentName");
             switch (intentFragment) {
-                case 0:
+                case "contacts":
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new ContactsFragment()).commit();
                     break;
-                case 1:
+                case "drugs":
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DrugsFragment()).commit();
                     break;
-                case 2:
+                case "diseases":
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DiseasesFragment()).commit();
                     break;
-                case 3:
+                case "doctors":
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DoctorsFragment()).commit();
                     break;
+                case "settings":
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new SettingsFragment()).commit();
+                    break;
+                default:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new HomeFragment()).commit();
             }
         } catch (Exception e) {
             Log.e("error", e.getMessage());
@@ -103,21 +111,6 @@ public class Main extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

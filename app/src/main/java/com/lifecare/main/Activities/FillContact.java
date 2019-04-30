@@ -150,7 +150,7 @@ public class FillContact extends AppCompatActivity {
 
     private void backToList() {
         Intent contactsFragment = new Intent(getApplicationContext(), Main.class);
-        contactsFragment.putExtra("fragmentName", 0);
+        contactsFragment.putExtra("fragmentName", "contacts");
         startActivity(contactsFragment);
         finish();
     }

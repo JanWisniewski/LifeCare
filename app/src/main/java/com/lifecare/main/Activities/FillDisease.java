@@ -132,7 +132,7 @@ public class FillDisease extends AppCompatActivity {
 
     private void backToList() {
         Intent diseaseFragment = new Intent(getApplicationContext(), Main.class);
-        diseaseFragment.putExtra("fragmentName", 2);
+        diseaseFragment.putExtra("fragmentName", "diseases");
         startActivity(diseaseFragment);
         finish();
     }
