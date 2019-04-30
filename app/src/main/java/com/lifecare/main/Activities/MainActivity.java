@@ -68,8 +68,17 @@ public class MainActivity extends AppCompatActivity {
                             sendLocationSMS(phoneNumbers.get(i), location);
                             Toast.makeText(view.getContext(), "Sent", Toast.LENGTH_LONG).show();
                         }
+                    } else {
+                        for (int i = 0; i < phoneNumbers.size(); i++) {
+                            sendLocationSMSWithoutLocation(phoneNumbers.get(i));
+                            Toast.makeText(view.getContext(), "Sent", Toast.LENGTH_LONG).show();
+                        }
                     }
                 } else {
+                    for (int i = 0; i < phoneNumbers.size(); i++) {
+                        sendLocationSMSWithoutLocation(phoneNumbers.get(i));
+                        Toast.makeText(view.getContext(), "Sent", Toast.LENGTH_LONG).show();
+                    }
                     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                 }
             }
@@ -83,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         smsBody.append(currentLocation.getLatitude());
         smsBody.append(",");
         smsBody.append(currentLocation.getLongitude());
+        smsManager.sendTextMessage(phoneNumber, null, smsBody.toString(), null, null);
+    }
+
+    public void sendLocationSMSWithoutLocation(String phoneNumber) {
+        SmsManager smsManager = SmsManager.getDefault();
+        StringBuffer smsBody = new StringBuffer("help");
         smsManager.sendTextMessage(phoneNumber, null, smsBody.toString(), null, null);
     }
 }
