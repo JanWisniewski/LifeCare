@@ -106,6 +106,16 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        try {
+            Bundle args = getArguments();
+            if (args.getString("disabledInputs").equals("true")) {
+                saveSettingsBtn.setEnabled(false);
+                int resID = getResources().getIdentifier("btn_disabled", "drawable", getActivity().getPackageName());
+                saveSettingsBtn.setBackgroundResource(resID);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (App.NOTIFICATION_DISPLAYED) {
             App.notificationDisplay();
