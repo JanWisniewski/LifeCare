@@ -54,6 +54,40 @@
             android:enabled="true"
             android:exported="true" />
 
+        <activity
+            android:name=".Activities.MainBlocked"
+            android:showForAllUsers="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"></activity>
+
+        <activity
+            android:name=".Activities.ReadContact"
+            android:showForAllUsers="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" />
+
+        <activity
+            android:name=".Activities.ReadDisease"
+            android:showForAllUsers="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" />
+
+        <activity
+            android:name=".Activities.ReadDoctor"
+            android:showForAllUsers="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" />
+
+        <activity
+            android:name=".Activities.ReadDrug"
+            android:showForAllUsers="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" />
     </application>
 
 </manifest>
