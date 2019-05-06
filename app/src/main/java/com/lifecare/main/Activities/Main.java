@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,6 +28,8 @@ import com.lifecare.main.R;
 public class Main extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Bundle args;
+
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
             for (String permission : permissions) {
@@ -42,6 +45,11 @@ public class Main extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+
+        args = new Bundle();
+        args.putString("disabledInputs", intent.getStringExtra(MainActivity.DISABLED_INPUTS));
+
         int PERMISSION_ALL = 1;
         String[] PERMISSIONS = {
                 Manifest.permission.READ_CONTACTS,
@@ -53,29 +61,34 @@ public class Main extends AppCompatActivity
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new HomeFragment()).commit();
+        Fragment fragment = new HomeFragment();
+        fragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, fragment).commit();
 
         try {
             String intentFragment = getIntent().getExtras().getString("fragmentName");
             switch (intentFragment) {
                 case "contacts":
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new ContactsFragment()).commit();
+                    fragment = new ContactsFragment();
                     break;
                 case "drugs":
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DrugsFragment()).commit();
+                    fragment = new DrugsFragment();
                     break;
                 case "diseases":
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DiseasesFragment()).commit();
+                    fragment = new DiseasesFragment();
                     break;
                 case "doctors":
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DoctorsFragment()).commit();
+                    fragment = new DoctorsFragment();
                     break;
                 case "settings":
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new SettingsFragment()).commit();
+                    fragment = new SettingsFragment();
                     break;
                 default:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new HomeFragment()).commit();
+                    fragment = new HomeFragment();
+                    break;
             }
+            fragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, fragment).commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,21 +130,25 @@ public class Main extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Fragment fragment = new HomeFragment();
+
         if (id == R.id.nav_contacts) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new ContactsFragment()).commit();
+            fragment = new ContactsFragment();
         } else if (id == R.id.nav_drugs) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DrugsFragment()).commit();
+            fragment = new DrugsFragment();
         } else if (id == R.id.nav_doctors) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DoctorsFragment()).commit();
+            fragment = new DoctorsFragment();
         } else if (id == R.id.nav_diseases) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new DiseasesFragment()).commit();
+            fragment = new DiseasesFragment();
         } else if (id == R.id.nav_settings) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new SettingsFragment()).commit();
+            fragment = new SettingsFragment();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             finish();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
+        fragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, fragment).commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

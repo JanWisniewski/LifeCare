@@ -95,16 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        Button openInformationBtn = findViewById(id.openInformationBtn);
-
-        openInformationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainBlocked.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void onClickSend() {

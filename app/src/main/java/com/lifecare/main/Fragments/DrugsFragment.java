@@ -64,38 +64,57 @@ public class DrugsFragment extends Fragment {
         dbDrugs = FirebaseDatabase.getInstance().getReference("Drugs");
         query = dbDrugs.orderByChild("uid").equalTo(uid);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final Drug drug = drugs.get(i);
+        Bundle args = getArguments();
+        if (args.getString("disabledInputs") != null) {
+            addMedicineBtn.setEnabled(false);
+            int resID = getResources().getIdentifier("btn_disabled", "drawable", getActivity().getPackageName());
+            addMedicineBtn.setBackgroundResource(resID);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent openUpdate = new Intent(getActivity(), FillDrug.class);
-                        openUpdate.putExtra(DRUG_ID, drug.getId());
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final Drug drug = drugs.get(i);
 
-                        startActivity(openUpdate);
-                    }
-                });
-                builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dbDrugs.child(drug.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), R.string.deletedDrug, Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    Intent openUpdate = new Intent(getActivity(), FillDrug.class);
+                    openUpdate.putExtra(DRUG_ID, drug.getId());
+
+                    startActivity(openUpdate);
+                }
+            });
+        } else {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final Drug drug = drugs.get(i);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent openUpdate = new Intent(getActivity(), FillDrug.class);
+                            openUpdate.putExtra(DRUG_ID, drug.getId());
+
+                            startActivity(openUpdate);
+                        }
+                    });
+                    builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dbDrugs.child(drug.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getActivity(), R.string.deletedDrug, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
 
-                builder.show();
-            }
-        });
+                    builder.show();
+                }
+            });
+        }
         return view;
     }
 
