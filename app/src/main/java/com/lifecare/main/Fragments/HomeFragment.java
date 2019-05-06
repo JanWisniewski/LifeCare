@@ -12,8 +12,6 @@ import android.widget.Button;
 import com.lifecare.main.Activities.Main;
 import com.lifecare.main.R;
 
-import static com.lifecare.main.Activities.MainActivity.DISABLED_INPUTS;
-
 public class HomeFragment extends Fragment {
 
 
@@ -32,8 +30,6 @@ public class HomeFragment extends Fragment {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         getActivity().setTitle(R.string.home);
 
-        final Bundle args = getArguments();
-
         Button userBtn = view.findViewById(R.id.userBtn);
         Button contactsBtn = view.findViewById(R.id.contactBtn);
         Button diseaseBtn = view.findViewById(R.id.diseaseBtn);
@@ -46,7 +42,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Main.class);
                 intent.putExtra("fragmentName", "users");
-                intent.putExtra(DISABLED_INPUTS, args.getString("disabledInputs"));
                 startActivity(intent);
             }
         });
@@ -56,7 +51,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Main.class);
                 intent.putExtra("fragmentName", "contacts");
-                intent.putExtra(DISABLED_INPUTS, args.getString("disabledInputs"));
                 startActivity(intent);
             }
         });
@@ -66,7 +60,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Main.class);
                 intent.putExtra("fragmentName", "diseases");
-                intent.putExtra(DISABLED_INPUTS, args.getString("disabledInputs"));
                 startActivity(intent);
             }
         });
@@ -76,7 +69,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Main.class);
                 intent.putExtra("fragmentName", "doctors");
-                intent.putExtra(DISABLED_INPUTS, args.getString("disabledInputs"));
                 startActivity(intent);
             }
         });
@@ -86,7 +78,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Main.class);
                 intent.putExtra("fragmentName", "drugs");
-                intent.putExtra(DISABLED_INPUTS, args.getString("disabledInputs"));
                 startActivity(intent);
             }
         });
@@ -96,7 +87,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Main.class);
                 intent.putExtra("fragmentName", "settings");
-                intent.putExtra(DISABLED_INPUTS, args.getString("disabledInputs"));
                 startActivity(intent);
             }
         });

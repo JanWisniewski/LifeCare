@@ -53,8 +53,8 @@ public class ContactsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
         getActivity().setTitle(R.string.contacts);
 
-        final Button addContactsBtn = view.findViewById(R.id.addContactBtn);
-        addContactsBtn.setOnClickListener(new View.OnClickListener() {
+        final Button btn = view.findViewById(R.id.addContactBtn);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addContactIntent = new Intent(getActivity(), FillContact.class);
@@ -69,57 +69,38 @@ public class ContactsFragment extends Fragment {
         dbContacts = FirebaseDatabase.getInstance().getReference("Contacts");
         query = dbContacts.orderByChild("uid").equalTo(uid);
 
-        final Bundle args = getArguments();
-        if (args.getString("disabledInputs") != null) {
-            addContactsBtn.setEnabled(false);
-            int resID = getResources().getIdentifier("btn_disabled", "drawable", getActivity().getPackageName());
-            addContactsBtn.setBackgroundResource(resID);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final Contact contact = contacts.get(i);
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    final Contact contact = contacts.get(i);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent openUpdate = new Intent(getActivity(), FillContact.class);
+                        openUpdate.putExtra(CONTACT_ID, contact.getId());
 
-                    Intent openUpdate = new Intent(getActivity(), FillContact.class);
-                    openUpdate.putExtra(CONTACT_ID, contact.getId());
-
-                    startActivity(openUpdate);
-                }
-            });
-        } else {
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    final Contact contact = contacts.get(i);
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent openUpdate = new Intent(getActivity(), FillContact.class);
-                            openUpdate.putExtra(CONTACT_ID, contact.getId());
-
-                            startActivity(openUpdate);
-                        }
-                    });
-                    builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dbContacts.child(contact.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getActivity(), R.string.deletedContact, Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                    }
+                        startActivity(openUpdate);
+                    }
+                });
+                builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dbContacts.child(contact.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), R.string.deletedContact, Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }
-                            });
-                        }
-                    });
+                            }
+                        });
+                    }
+                });
 
-                    builder.show();
-                }
-            });
-        }
+                builder.show();
+            }
+        });
         return view;
     }
 

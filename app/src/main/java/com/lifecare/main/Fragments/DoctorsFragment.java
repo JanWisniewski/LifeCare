@@ -53,8 +53,8 @@ public class DoctorsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_doctors, container, false);
         getActivity().setTitle(R.string.doctors);
 
-        final Button addDoctorBtn = view.findViewById(R.id.addDoctorBtn);
-        addDoctorBtn.setOnClickListener(new View.OnClickListener() {
+        final Button btn = view.findViewById(R.id.addDoctorBtn);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addDoctorIntent = new Intent(getActivity(), FillDoctor.class);
@@ -69,57 +69,38 @@ public class DoctorsFragment extends Fragment {
         dbDoctors = FirebaseDatabase.getInstance().getReference("Doctors");
         query = dbDoctors.orderByChild("uid").equalTo(uid);
 
-        Bundle args = getArguments();
-        if (args.getString("disabledInputs") != null) {
-            addDoctorBtn.setEnabled(false);
-            int resID = getResources().getIdentifier("btn_disabled", "drawable", getActivity().getPackageName());
-            addDoctorBtn.setBackgroundResource(resID);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final Doctor doctor = doctors.get(i);
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    final Doctor doctor = doctors.get(i);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent openUpdate = new Intent(getActivity(), FillDoctor.class);
+                        openUpdate.putExtra(DOCTORS_ID, doctor.getId());
 
-                    Intent openUpdate = new Intent(getActivity(), FillDoctor.class);
-                    openUpdate.putExtra(DOCTORS_ID, doctor.getId());
-
-                    startActivity(openUpdate);
-                }
-            });
-        } else {
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    final Doctor doctor = doctors.get(i);
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent openUpdate = new Intent(getActivity(), FillDoctor.class);
-                            openUpdate.putExtra(DOCTORS_ID, doctor.getId());
-
-                            startActivity(openUpdate);
-                        }
-                    });
-                    builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dbDoctors.child(doctor.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getActivity(), R.string.deletedDoctor, Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                    }
+                        startActivity(openUpdate);
+                    }
+                });
+                builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dbDoctors.child(doctor.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), R.string.deletedDoctor, Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }
-                            });
-                        }
-                    });
+                            }
+                        });
+                    }
+                });
 
-                    builder.show();
-                }
-            });
-        }
+                builder.show();
+            }
+        });
         return view;
     }
 

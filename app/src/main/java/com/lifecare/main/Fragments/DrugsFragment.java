@@ -48,8 +48,8 @@ public class DrugsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_drugs, container, false);
         getActivity().setTitle(R.string.drugs);
 
-        final Button addMedicineBtn = view.findViewById(R.id.addMedicineBtn);
-        addMedicineBtn.setOnClickListener(new View.OnClickListener() {
+        final Button btn = view.findViewById(R.id.addMedicineBtn);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addDrugIntent = new Intent(getActivity(), FillDrug.class);
@@ -64,57 +64,38 @@ public class DrugsFragment extends Fragment {
         dbDrugs = FirebaseDatabase.getInstance().getReference("Drugs");
         query = dbDrugs.orderByChild("uid").equalTo(uid);
 
-        Bundle args = getArguments();
-        if (args.getString("disabledInputs") != null) {
-            addMedicineBtn.setEnabled(false);
-            int resID = getResources().getIdentifier("btn_disabled", "drawable", getActivity().getPackageName());
-            addMedicineBtn.setBackgroundResource(resID);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final Drug drug = drugs.get(i);
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    final Drug drug = drugs.get(i);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent openUpdate = new Intent(getActivity(), FillDrug.class);
+                        openUpdate.putExtra(DRUG_ID, drug.getId());
 
-                    Intent openUpdate = new Intent(getActivity(), FillDrug.class);
-                    openUpdate.putExtra(DRUG_ID, drug.getId());
-
-                    startActivity(openUpdate);
-                }
-            });
-        } else {
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    final Drug drug = drugs.get(i);
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent openUpdate = new Intent(getActivity(), FillDrug.class);
-                            openUpdate.putExtra(DRUG_ID, drug.getId());
-
-                            startActivity(openUpdate);
-                        }
-                    });
-                    builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dbDrugs.child(drug.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getActivity(), R.string.deletedDrug, Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                    }
+                        startActivity(openUpdate);
+                    }
+                });
+                builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dbDrugs.child(drug.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), R.string.deletedDrug, Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }
-                            });
-                        }
-                    });
+                            }
+                        });
+                    }
+                });
 
-                    builder.show();
-                }
-            });
-        }
+                builder.show();
+            }
+        });
         return view;
     }
 
