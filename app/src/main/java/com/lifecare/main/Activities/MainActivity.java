@@ -31,6 +31,8 @@ import static com.lifecare.main.R.layout;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String DISABLED_INPUTS;
+
     DatabaseReference dbContacts;
     boolean torchOn = false;
     private ArrayList<String> phoneNumbers = new ArrayList<String>();
@@ -93,6 +95,17 @@ public class MainActivity extends AppCompatActivity {
                 } catch (CameraAccessException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        Button informationBtn = findViewById(id.openInformationBtn);
+
+        informationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Main.class);
+                intent.putExtra(DISABLED_INPUTS, "true");
+                startActivity(intent);
             }
         });
     }

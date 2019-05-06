@@ -69,38 +69,57 @@ public class ContactsFragment extends Fragment {
         dbContacts = FirebaseDatabase.getInstance().getReference("Contacts");
         query = dbContacts.orderByChild("uid").equalTo(uid);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final Contact contact = contacts.get(i);
+        final Bundle args = getArguments();
+        if (args.getString("disabledInputs") != null) {
+            addContactsBtn.setEnabled(false);
+            int resID = getResources().getIdentifier("btn_disabled", "drawable", getActivity().getPackageName());
+            addContactsBtn.setBackgroundResource(resID);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent openUpdate = new Intent(getActivity(), FillContact.class);
-                        openUpdate.putExtra(CONTACT_ID, contact.getId());
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final Contact contact = contacts.get(i);
 
-                        startActivity(openUpdate);
-                    }
-                });
-                builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dbContacts.child(contact.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), R.string.deletedContact, Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    Intent openUpdate = new Intent(getActivity(), FillContact.class);
+                    openUpdate.putExtra(CONTACT_ID, contact.getId());
+
+                    startActivity(openUpdate);
+                }
+            });
+        } else {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final Contact contact = contacts.get(i);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent openUpdate = new Intent(getActivity(), FillContact.class);
+                            openUpdate.putExtra(CONTACT_ID, contact.getId());
+
+                            startActivity(openUpdate);
+                        }
+                    });
+                    builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dbContacts.child(contact.getId()).removeValue().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getActivity(), R.string.deletedContact, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
 
-                builder.show();
-            }
-        });
+                    builder.show();
+                }
+            });
+        }
         return view;
     }
 
