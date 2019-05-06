@@ -12,10 +12,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lifecare.main.Fragments.ContactsFragment;
@@ -79,7 +77,7 @@ public class Main extends AppCompatActivity
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, new HomeFragment()).commit();
             }
         } catch (Exception e) {
-            Log.e("error", e.getMessage());
+            e.printStackTrace();
         }
 
         setContentView(R.layout.activity_main2);
@@ -132,7 +130,6 @@ public class Main extends AppCompatActivity
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             finish();
-            Toast.makeText(getApplicationContext(), "Wylogowano pomyślnie", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
 

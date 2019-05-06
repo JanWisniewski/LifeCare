@@ -53,8 +53,8 @@ public class ContactsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
         getActivity().setTitle(R.string.contacts);
 
-        final Button btn = view.findViewById(R.id.addContactBtn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        final Button addContactsBtn = view.findViewById(R.id.addContactBtn);
+        addContactsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addContactIntent = new Intent(getActivity(), FillContact.class);

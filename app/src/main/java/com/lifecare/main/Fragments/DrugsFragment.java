@@ -48,8 +48,8 @@ public class DrugsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_drugs, container, false);
         getActivity().setTitle(R.string.drugs);
 
-        final Button btn = view.findViewById(R.id.addMedicineBtn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        final Button addMedicineBtn = view.findViewById(R.id.addMedicineBtn);
+        addMedicineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addDrugIntent = new Intent(getActivity(), FillDrug.class);

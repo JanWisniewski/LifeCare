@@ -5,6 +5,9 @@
     <string name="title_activity_main" translatable="false">Main</string>
     <!--nav-->
     <string name="home">Home</string>
+    <string name="sendMessage">Send emergency message</string>
+    <string name="alarm">On/Off Alarm</string>
+    <string name="informationOpen">Click for more information</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="userInfo">User Information</string>

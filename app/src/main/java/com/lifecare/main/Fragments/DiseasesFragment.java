@@ -53,8 +53,8 @@ public class DiseasesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_diseases, container, false);
         getActivity().setTitle(R.string.diseases);
 
-        final Button btn = view.findViewById(R.id.addDiseaseBtn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        final Button addDiseaseBtn = view.findViewById(R.id.addDiseaseBtn);
+        addDiseaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addDiseaseIntent = new Intent(getActivity(), FillDisease.class);
