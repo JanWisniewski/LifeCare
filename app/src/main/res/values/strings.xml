@@ -25,6 +25,8 @@
     <string name="goToRegister">Do not have account? Register!</string>
     <string name="buttonLogin">Login</string>
     <string name="buttonRegister">Register</string>
+    <string name="loginError">Login error</string>
+    <string name="loginSuccess">Successfully logged in</string>
 
     <string-array name="languagesArray">
         <item>English</item>
@@ -41,6 +43,7 @@
     <!--buttons-->
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="helpMessage">Help</string>
 
     <!--Contacts-->
     <string name="contact">Contact</string>
@@ -116,5 +119,9 @@
 
     <!--Settings-->
     <string name="savedSettings">Saved settings</string>
+    <string name="language">Language</string>
+    <string name="showNotification">Show notification</string>
 
+    <!--Notification-->
+    <string name="notificationText">Click here for important information about owner of this phone!</string>
 </resources>

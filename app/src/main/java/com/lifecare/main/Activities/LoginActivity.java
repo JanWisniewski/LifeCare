@@ -1,10 +1,9 @@
 package com.lifecare.main.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,10 +66,10 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Zalogowano pomyślnie", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.loginSuccess, Toast.LENGTH_LONG).show();
                             goToMainActivity();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Błąd logowania " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.loginError + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });

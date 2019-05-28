@@ -135,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendLocationSMS(String phoneNumber, Location currentLocation) {
         SmsManager smsManager = SmsManager.getDefault();
-        StringBuffer smsBody = new StringBuffer();
+        StringBuffer smsBody;
+        smsBody = new StringBuffer();
         smsBody.append("http://maps.google.com?q=");
         smsBody.append(currentLocation.getLatitude());
         smsBody.append(",");
@@ -145,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendLocationSMSWithoutLocation(String phoneNumber) {
         SmsManager smsManager = SmsManager.getDefault();
-        StringBuffer smsBody = new StringBuffer("help");
+        StringBuffer smsBody;
+        smsBody = new StringBuffer(R.string.helpMessage);
         smsManager.sendTextMessage(phoneNumber, null, smsBody.toString(), null, null);
     }
 }

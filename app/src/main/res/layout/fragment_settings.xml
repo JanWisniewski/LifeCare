@@ -9,7 +9,7 @@
 
     <Spinner
         android:id="@+id/languageSpinner"
-        android:layout_width="368dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -18,7 +18,8 @@
         app:layout_constraintBottom_toTopOf="@+id/notificationCheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.753" />
 
     <Button
         android:id="@+id/saveSettingsBtn"
@@ -28,7 +29,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/btn_primary"
-        android:text="Button"
+        android:text="@string/save"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,13 +37,29 @@
 
     <CheckBox
         android:id="@+id/notificationCheckBox"
-        android:layout_width="301dp"
+        android:layout_width="300dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="312dp"
+        android:layout_marginBottom="308dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="CheckBox"
+        android:text="@string/showNotification"
         app:layout_constraintBottom_toTopOf="@+id/saveSettingsBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/languageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/language"
+        app:layout_constraintBottom_toTopOf="@+id/languageSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.818" />
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.lifecare.main.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -179,6 +180,7 @@ public class FillContact extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("Recycle")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {

@@ -55,7 +55,7 @@ public class App extends Application {
         collapsedView.setOnClickPendingIntent(R.id.backgroundNotification, clickPendingIntent);
 
         notification = new NotificationCompat.Builder(this, "0")
-                .setSmallIcon(R.drawable.ic_menu_send)
+                .setSmallIcon(R.drawable.ic_heart_with_electrocardiogram)
                 .setOngoing(true)
                 .setCustomContentView(collapsedView)
                 .build();
