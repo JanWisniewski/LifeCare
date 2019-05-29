@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.lifecare.main.Activities.MainBlocked;
+import com.lifecare.main.Activities.ReadUserData;
 import com.lifecare.main.R;
 
 public class HomeFragmentBlocked extends Fragment {
@@ -40,8 +41,7 @@ public class HomeFragmentBlocked extends Fragment {
         userBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MainBlocked.class);
-                intent.putExtra("fragmentName", "users");
+                Intent intent = new Intent(getContext(), ReadUserData.class);
                 startActivity(intent);
             }
         });

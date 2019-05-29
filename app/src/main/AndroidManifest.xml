@@ -48,7 +48,9 @@
         <activity
             android:name=".Activities.FillDrug"
             android:parentActivityName=".Activities.Main" />
-
+        <activity
+            android:name=".Activities.FillUserData"
+            android:parentActivityName=".Activities.Main" />
         <receiver
             android:name=".Broadcast.MyBroadcastReceiver"
             android:enabled="true"
@@ -59,31 +61,38 @@
             android:showForAllUsers="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"></activity>
-
+            android:turnScreenOn="true" />
         <activity
             android:name=".Activities.ReadContact"
+            android:parentActivityName=".Activities.MainBlocked"
             android:showForAllUsers="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
             android:turnScreenOn="true" />
-
         <activity
             android:name=".Activities.ReadDisease"
+            android:parentActivityName=".Activities.MainBlocked"
             android:showForAllUsers="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
             android:turnScreenOn="true" />
-
         <activity
             android:name=".Activities.ReadDoctor"
+            android:parentActivityName=".Activities.MainBlocked"
             android:showForAllUsers="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
             android:turnScreenOn="true" />
-
         <activity
             android:name=".Activities.ReadDrug"
+            android:parentActivityName=".Activities.MainBlocked"
+            android:showForAllUsers="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" />
+        <activity
+            android:name=".Activities.ReadUserData"
+            android:parentActivityName=".Activities.MainBlocked"
             android:showForAllUsers="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"

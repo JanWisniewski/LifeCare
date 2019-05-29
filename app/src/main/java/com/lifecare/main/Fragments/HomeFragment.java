@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.lifecare.main.Activities.FillUserData;
 import com.lifecare.main.Activities.Main;
 import com.lifecare.main.R;
 
@@ -40,8 +41,7 @@ public class HomeFragment extends Fragment {
         userBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Main.class);
-                intent.putExtra("fragmentName", "users");
+                Intent intent = new Intent(getContext(), FillUserData.class);
                 startActivity(intent);
             }
         });
